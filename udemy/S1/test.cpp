@@ -6,12 +6,10 @@ using namespace std;
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-
-    // Output to stdout using printf
-    printf("Using printf\n");
-
-    // Output to stdout using cout
-    cout << "Using cout" << endl;
-
+    //this is to test a few differences between ponters and references
+    int a =6;
+    int& c= a;
+    c=9;
+    cout<<c;
     return 0;
 }
