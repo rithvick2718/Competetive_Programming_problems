@@ -9,7 +9,8 @@ int main() {
     //this is to test a few differences between ponters and references
     int a =6;
     int& c= a;
+    int* d =&a;
     c=9;
-    cout<<c;
+    cout<<*d;
     return 0;
 }
