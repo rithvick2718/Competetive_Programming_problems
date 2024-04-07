@@ -1,9 +1,6 @@
 # Competetive_Programming_problems
+I am still new to this but I seem to get the hang of this now
 
-Well this one of my early repository
+I have added geek_for_geeks file, the problems I have done in DSA Course
 
-I just plan to share all the work I do in Competetive programming
-
-I am writing this to just test out a few things
-
-07-04-2024 : Hmm I learned the way to update
+And udemy is the main file I am working on right now
