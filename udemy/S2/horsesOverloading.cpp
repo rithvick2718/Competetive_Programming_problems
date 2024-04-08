@@ -16,15 +16,23 @@ struct race {
         multiplierHorse1 = g1;
         multiplierDraw = e;
         multiplierHorse2 = g2;
-    }//this code block says that if I write race(p1,p2,h,g1,g2) it will store all the values
-}; //this is to store all the information of a race as a data type struct and the functions you can use
+    }
+    friend bool operator < (race & race1, race & race2) {
+    	return race1.startTime < race2.startTime;
+    }
+};
 
-bool compareRaces(race & race1, race & race2) {
-	return race1.startTime <= race2.startTime;
+/*
+Alternative:
+
+bool operator < (race & race1, race & race2) {
+    return race1.startTime < race2.startTime;
 }
 
+ */
+
 void sortRaces(vector<race> & races) {
-	sort(races.begin(), races.end(), compareRaces);
+	sort(races.begin(), races.end());
 }
 
 void inputTable(map<string, int> & horseToPosition) {
