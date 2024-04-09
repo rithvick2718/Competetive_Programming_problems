@@ -1,3 +1,0 @@
-So we have the vector cointaining all the primes. 
-now we can begin with p3sum
-so we create

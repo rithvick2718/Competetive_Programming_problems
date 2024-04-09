@@ -21,7 +21,7 @@ struct race {
 
 bool compareRaces(race & race1, race & race2) {
 	return race1.startTime <= race2.startTime;
-}
+} //used to sort races accordin to the time
 
 void sortRaces(vector<race> & races) {
 	sort(races.begin(), races.end(), compareRaces);
