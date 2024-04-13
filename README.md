@@ -1,10 +1,8 @@
-# Competetive_Programming_problems
-I am still new to this but I seem to get the hang of this now
+## Competetive_Programming_problems
+This git repository contains most of the problems of CP I have done. Right now I am working on udemy file, that is I am still learning. I hope I start giving contests. And I haven't written this anywhere yet but I plan to practice CP even during exams i.e. atleast one question.
 
-I have added geek_for_geeks file, the problems I have done in DSA Course
+Also I have solved one problem from Japan Olympiad in Informatics and one problem from International Olympiad in Informatics.
 
-And udemy is the main file I am working on right now
+I see one area I can improve is that I need to write more functions that solve a part of the problem rather that writing it into the main()
 
-Well I have made significant efforts to remove .exe files in the repository to keep it clean. The way I do it is in running.txt file
-
-Wooh i love coding
+Lastly I am currently in Udemy Course Section 3
