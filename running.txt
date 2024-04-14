@@ -1,7 +1,0 @@
-Well you may or may not get it but there is a good reason for this 
-g++ -o temp.exe yourfile.cpp && temp.exe && del temp.exe
-the above in cmd prompt
-g++ yourfile.cpp -o temp.exe; .\temp.exe; Remove-Item temp.exe
-In Powershell
-g++ yourfile.cpp -o temp.exe && ./temp.exe && rm temp.exe
-In git bash
