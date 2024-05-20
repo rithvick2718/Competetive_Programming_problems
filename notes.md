@@ -1,6 +1,7 @@
 ## So this is for notes.
+
 #include<bits/stdc++.h> this is a common header file so you don't have to write #include<iostream>, #include<vector> #include<cmath> #include<fstream> etc
-I have this problem I don't want to create an .exe file whenever I run a new .cpp file so I paste this in terminal 
+I have this problem I don't want to create an .exe file whenever I run a new .cpp file so I paste this in terminal
 g++ -o temp.exe yourfile.cpp && temp.exe && del temp.exe
 the above in cmd prompt
 g++ yourfile.cpp -o temp.exe; .\temp.exe; Remove-Item temp.exe
