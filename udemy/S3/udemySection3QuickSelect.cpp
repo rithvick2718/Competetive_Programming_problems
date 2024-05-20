@@ -51,5 +51,4 @@ int main() {
 	for (size_t i = 0; i < nums.size(); i++)
 		cout << nums[i] << ' ';
 	return 0;
-}
-//this is a test
+} //well begining after a month now

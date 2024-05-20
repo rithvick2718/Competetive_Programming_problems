@@ -22,14 +22,7 @@ int main()
             }
             else
             {
-                if(p1+p3>p2)
-                {
-                    cout<<((p1+p2+p3)/2)<<"\n";
-                }
-                else
-                {
-                    cout<<(p1+p3)<<"\n";
-                }
+                cout<<((p1+p2+p3)/2)<<"\n";
             }
         }
     }
