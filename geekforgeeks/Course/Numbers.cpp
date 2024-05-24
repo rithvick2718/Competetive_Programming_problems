@@ -100,7 +100,7 @@ int HCF1 (int n, int m)
     if(m>=n)
     {
         int r;
-        while (r!=0)
+        while (n!=0)
         {
             r=m%n;
             m=n;
