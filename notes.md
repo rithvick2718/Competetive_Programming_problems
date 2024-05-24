@@ -10,3 +10,9 @@ g++ yourfile.cpp -o temp.exe && ./temp.exe && rm temp.exe
 In git bash
 
 So in programs you see that if you want (l+r)/2 then it might be better to write l+(r-l)/2 that is because sometimes l+r can cause overflow resulting in wrong output
+
+Algorithms : 
+Merge Sort
+Quick Sort
+Binary Search
+Quick Select
