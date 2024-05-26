@@ -1,9 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
-int iterpow(const int &n, const int &p) //this is fine
+vector<int> V; //global array of Vi
+int n; // the n
+vector<int> S; //thy s
+unsigned int countSetBits(int n)
+{
+    unsigned int count = 0;
+    while (n) {
+        n &= (n - 1);
+        count++;
+    }
+    return count;
+}
+int iterpow(const int &m, const int &p) //this is fine
 {
     int x=p; // for bit representation
-    int y =n; // even powers of n
+    int y =m; // even powers of m
     int r=1; // actual value of n^p
     do
     {
@@ -16,62 +28,45 @@ int iterpow(const int &n, const int &p) //this is fine
     }while(x!=0);
     return(r);
 }
-int f(vector<int> a) //fine too
+bool check( int s,  int index) //fine, this checks if s satisfies the condition for each v
 {
-    int v =0;
-    for(int i=0; i<a.size(); i++)
-    {
-        v=v+ iterpow(2, a[i]);
-    }
-    return(v);
+    int u=(index+1)&s; //since we do 0th index
+    // the purpose is that, let us say s and index have jth bit equal to 1 then it takes jth bit as one else 0
+    int k=countSetBits(u); //this is |S intersection T|
+    return((bool)((V[index]>>k)&1));
 }
-vector<bool> finv (int n, int size) //this stores finv in boolean array fine
+bool work (int s)//checks the condition for all the elements of array
 {
-    vector<bool> ans;
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < V.size(); i++)
     {
-        ans.push_back(n&1);
-        n=n>>1;
+        if(!check(s,i)) return(false);
     }
-    return(ans);
+    return(true);
 }
-bool check(int s, int v,int n) //fine, this checks if s satisfies the condition for each v
+void solve()
 {
-    int u=v&s;
-    // u=((~u)|s)&((~s)|u);
-    int k=0;
-    while(n--)
+    for(int s=0; s<iterpow(2,n); s++)
     {
-        if((bool)u&1) k++;
-        u=u>>1;
+        if(work(s)) S.push_back(s);
     }
-    return((bool)((v>>k)&1));
-}
-bool work (int s,vector<int>V, int size)//checks the condition for all the elements of array
-{
-    bool ans=true;
-    for (size_t i = 0; i < V.size(); i++)
-    {
-        ans=ans && check(s,V[i],size);
-        if(!ans) break;
-    }
-    return(ans);
 }
 int main()
 {
-    int n;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
     cin>>n;
-    vector<int>V; //creating vi's
-    int m =iterpow(2,n)-1;
+    int two =2;
+    int m =iterpow(two,n)-1;
     int k;
     while(m--)
     {
         cin>>k;
         V.push_back(k);
-    } //now we have vis, yes it is taking vectors
-    for(int s=0; s<iterpow(2,n);s++)
+    } //now we have vis, yes it is taking vectors;
+    solve();
+    cout<<S.size()<<"\n";
+    for(auto s : S)
     {
-        if(work(s,V,n)) cout<<s<<"\n";
+        cout<<s<<"\n";
     }
-    return(0);
 }
