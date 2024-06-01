@@ -1,61 +1,72 @@
 #include<bits/stdc++.h>
 using namespace std;
-vector<unsigned int> arr; //global variable
-int bitwiseproduct(int l,int r)
+vector<unsigned int> arr;
+int findbits (unsigned  int k) //(fine)number of bit in an integer
 {
-    if(l==r)
+    int m=0;
+    while(k!=0)
     {
-        return arr[l];
+        k=k>>1;
+        m++;
     }
-    int mid = l+(r-l)/2;
-    int m = bitwiseproduct(l,mid);
-    int n = bitwiseproduct(mid+1,r);
-    return(m|n);
-} //I am sure O(log n) I do not see a way to improve this
-bool check_fork (int k, int n)
+    return(m);
+}
+bool GETkthbit (unsigned int k, unsigned int num) //(fine)I get the kth bit of a number num
 {
-    int m = bitwiseproduct(0,k-1);
-    for (int i=1; i<n-k+1 ;i++)
+    int j = 1<<(k-1);
+    j = j & num;
+    j= j>>(k-1);
+    return((bool) j);
+}
+int givemezero (int k) //(fine)gives largest number of consecutive 0's
+{
+    int zerocount=0; //initialising
+    int maxum =0; //initialising
+    for(unsigned int num : arr)
     {
-        if(m!=bitwiseproduct(i,i+k-1))
-        return(false);
+        if(GETkthbit(k,num)) 
+        {
+            maxum=max(maxum,zerocount);
+            zerocount=0;
+        }
+        else zerocount++;
     }
-    return(true);
-} //looks good O(n-k) may be I can improve this?
+    maxum=max(maxum, zerocount);
+    return(maxum);
+}
+int lonely (int mbit)// mbit is the number of bits of the largest element
+{
+    int maxi=0;
+    int h; //helper
+    for(unsigned int i=1;i<=mbit; i++) //from bits of 1st place to last
+    {
+        h=givemezero(i); //I gave (fine)
+        if(h!=(int)arr.size()) //this means we reject the case of all the bits in that row as 0
+        maxi=max(maxi,givemezero(i)); 
+    }
+    return(maxi+1);
+}
 int main()
 {
     ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t; //testcases
-    cin>>t;
-    while(t--) //the code for each test case
+    std::cin.tie(NULL);
+    int t;
+    std::cin>>t;
+    int n;
+    while(t--)
     {
-        int n;
-        cin>>n; //taking n
-        int h; //to push numbers
-        for(int i=0; i<n; i++)
+        //code here 
+        arr.clear();
+        std::cin>>n;
+        unsigned int h;
+        unsigned int maxi=0;
+        while(n--)
         {
-            cin>>h;
+            std::cin>>h;
+            maxi=max(maxi,h);
             arr.push_back(h);
-        } //now we have the array and the 0's
-        // now it is time to find k I use a binary implementation
-        int key =1;
-        while((!check_fork(key,n)) && key<n)
-        {
-            key=2*key;
-        }
-        int mini =max(1,key/2);
-        int maxi =min(n,key);
-        int mid;
-        while(mini<maxi)
-        {
-            mid = mini + (maxi-mini)/2;
-            if(check_fork(mid,n))
-            maxi=mid;
-            else
-            mini=mid+1;
-        }
-        cout<<mini<<"\n";
-        arr.clear(); //empty the array
+        }// getting array
+        int m = findbits(maxi);
+        cout<<lonely(m)<<"\n";
     }
 }
