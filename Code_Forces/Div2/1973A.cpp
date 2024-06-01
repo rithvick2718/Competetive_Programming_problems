@@ -4,10 +4,9 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t; //testcases
+    int t; //testcases must take
     cin>>t;
-    int p1,p2,p3; //points of players
-    int h=0;
+    int p1,p2,p3; //points of players must
     while(t--)
     {
         cin>>p1>>p2>>p3; //now (p1+p2+p3)/2 is total matches played
@@ -17,21 +16,13 @@ int main()
         }
         else
         {
-            h=(p1+p2-p3);
-            if(h<0)
+            if(p1+p2-p3<0)
             {
                 cout<<p1+p2<<"\n";
             }
             else
             {
-                if(2*p1>h)
-                {
-                    cout<<((p1+p2+p3)/2)<<"\n";
-                }
-                else
-                {
-                    cout<<(p1+p3)<<"\n";
-                }
+                cout<<((p1+p2+p3)/2)<<"\n";
             }
         }
     }
