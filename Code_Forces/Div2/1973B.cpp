@@ -69,4 +69,4 @@ int main()
         int m = findbits(maxi);
         cout<<lonely(m)<<"\n";
     }
-}
+} //I add a comment
