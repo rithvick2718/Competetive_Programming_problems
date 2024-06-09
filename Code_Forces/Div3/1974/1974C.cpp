@@ -9,6 +9,15 @@ inline bool compare(const vector<int> &arr, int i, int j) {
     // Return true if exactly two out of the three are true
     return (first + second + third) == 2;
 }//dont think this can be faster
+inline bool compare(const vector<int> &arr, int i) {
+    // Compare the three positions
+    bool first = (arr[i] == arr[i+1]);
+    bool second = (arr[i + 1] == arr[i + 2]);
+    bool third = (arr[i + 2] == arr[i + 3]);
+
+    // Return true if exactly two out of the three are true
+    return (first + second + third) == 2;
+}//dont think this can be faster
 int main()
 {
     ios::sync_with_stdio(false);
