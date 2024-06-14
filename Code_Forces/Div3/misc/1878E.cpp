@@ -1,74 +1,64 @@
 #include<bits/stdc++.h>
 using namespace std;
-template<int n>
-int cal (int (&presolve)[n+1][32], int (&a)[n+1], int l, int r)
+int cal(const int &l, const int &r, const vector<int[30]> &pre) //have debugged enough
 {
-    //so this calculates for a[l]&a[l+1]&a[l+2]...&a[r]
-    int ans = a[l];
-    for(int j=0; j<32; j++)
+    if(l>r) return 0;
+    int ans=0;
+    for(int i=0; i<30; i++)
     {
-        if(a[r][j]-a[l-1][r]!=r-l) ans=ans &(~(1<<j));
+        if((pre[r][i]-pre[l-1][i])==((r-l)+1)) ans = ans|(1<<i);
     }
     return(ans);
 }
-// int binser(int (&presolve)[n+1][32], int (&a)[m+1], int l, int k)
-// {
-//     //this will be called only when we know arr[l]>k
-//     // so we need to binary search for r
-//     int low  =l;
-//     int high =sizeof(a)/sizeof(a[0]);
-//     int mid; //equal to (low+high)/2
-//     while(low<high)
-//     {
-//         mid= low+(high-low)/2;
-//         if(cal(presolve, a, l, mid) <k)
-//             high=mid;
-//         else
-//         low =mid+1;
-//     }
-//     if(low <sizeof(a)/sizeof(a[0])) return(low);
-//     else return(-1);
-// }
+int findr(const int &l, const int &k, const vector<int[30]> &pre, const int &n) //the final one.
+{
+    int low = l;
+    int high = n;
+    while (low < high)
+    {
+        int mid = low + (high - low + 1) / 2; //this +1 was the mole. Let's figure out why
+        if (cal(l, mid, pre) >= k)
+            low = mid;
+        else
+            high = mid - 1;
+    }
+    return low;
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t; //test cases
+    int t;  //testcases
     cin>>t;
     while(t--)
     {
-        int n; //size of array
+        int n;
         cin>>n;
-        int a[n+1]; //a[0] is ignored
-        a[0]=0;
-        int presolve[n+1][32];
-        fill(presolve,presolve+(n+1)*32,0); //fine
-        int h;
-        //input and presolve block
-        for(int i=1; i<=n;i++) //fine
+        vector<int> a(n+1); //This is the OG array
+        a[0]=0; //I just want better indexing
+        vector<int[30]> pre(n+1); // THE PREFIX ARRAY
+        for(int j=0; j<30; j++) //setting the pre[0] to be all 0
+        {
+            pre[0][j]=0;
+        }
+        for (int i = 1; i <= n; i++) //getting the OG array as well as PREFIX array
         {
             cin>>a[i];
-            h=a[i];
-            for(int j=0; h; j++)
+            for(int j=0; j<30; j++)
             {
-                if(h&1) presolve[i][j]=presolve[i-1][j]+1;
-                else presolve[i][j]=presolve[i-1][j];
-                h>>=1;
+                if((a[i]>>j)&1) pre[i][j]=pre[i-1][j]+1;
+                else pre[i][j]=pre[i-1][j];
             }
-        }
-        int q,l,k;
+        } //so I have debugged everything till here in main()
+        int q;
+        int l,k;
         cin>>q;
         while(q--)
         {
             cin>>l>>k;
-            l--;
-            if(a[l]<k) cout<<"-1 ";
-            else
-            {
-                //now I am supposed to apply binary search for r
-                // cout<<binser(presolve,a,l,k)<<" ";
-            }
-            cout<<"\n";
+            if(a[l]<k) cout<<-1<<" ";
+            else cout<<findr(l,k,pre,n)<<" ";
         }
+        cout<<"\n";
     }
 }
