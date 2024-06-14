@@ -41,11 +41,36 @@ vector<int> two_odd_occuring2 (int arr[], int n) // we need the array firstly n 
 	t.push_back(b);
     return (t);
 }
+int fbit (int n) //debugged
+{
+	int ans=0;
+	while(n)
+	{
+		ans++;
+		n>>=1;
+	}
+	return(ans);
+}
+int countSetBits(int n) //so I write a iterative solution
+{
+	if (n==0) return 0;
+	if(n==1) return 1;
+	int a = fbit(n); //we are dam sure a>=2
+	int ans =0;
+	while(a>=2)
+	{
+		ans =ans+n-(1<<(a-1))+1+(a-1)*(1<<(a-2));
+		n=n-(1<<(a-1));
+		a =fbit(n);
+	}
+	if(n&1) ans++;
+	return(ans);
+}
 int main ()
 {
-    int a[]={2,2,2,9,7,7,8,8,9,9,9,5,5,5,5,7,2,8};
-    for(auto x : two_odd_occuring2(a,18))
-    {
-        cout<<x<<" ";
-    }
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;
+	cin>>t;
+	cout<<countSetBits(t);
 }
