@@ -9,5 +9,12 @@ int f(int n)
 }
 int main()
 {
-    cout<<f(11);
+    int arr[] = {9, 12, 2, 11, 2, 2, 10, 9, 12, 10, 9, 11, 2};
+    int x = arr[0];
+    int size = sizeof(arr)/sizeof(arr[0]);
+    for(int i=1; i<size;i++)
+    {
+        x=x^arr[i];
+    }
+    cout<<(5^3);
 }
