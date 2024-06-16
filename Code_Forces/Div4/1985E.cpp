@@ -1,33 +1,51 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long int firstfact(long long int n)
+vector<long long> factorList(const long long &k) //debugged,the only problem is for squared numbers
 {
-    if(n==1) return(1);
-    long long int i=2;
-    if(n%i==0) return(i);
-    i=3;
-    while(n%i!=0)
+    vector<long long> front;
+    vector<long long> back;
+    for(long long i=1; i*i<=k;i++)
     {
-        i=i+2;
+        if(k%i == 0)
+        {
+            front.push_back(i);
+            back.push_back(k/i);
+        }
     }
-    return(i);
-}
+    front.insert(front.end(), back.rbegin(), back.rend());
+    return(front);
+} //O(sqrt(k))
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
+    int t; //test cases
     cin>>t;
-    while(t--)
+    while (t--)
     {
-        long long int x,y,z;
-        long long int k;
+        long long x,y,z; //yes it is inefficient. Or is it?
         cin>>x>>y>>z;
+        long long k;
         cin>>k;
-        if(k>x*y*z) cout<<0<<"\n";
-        else
+        vector<long long> f = factorList(k); // now I have the sorted list of factors
+        //now like a barbarian I can traverse through all the possible dimensions
+        long long ways=0;
+        long long h;
+        for(long long i : f)
         {
-            cout<<1<<"\n";
+            if(i>x) break; //fine
+            for(long long j : f)
+            {
+                long long a = k/i;
+                long long b = k/(i*j);
+                if(j > y || j > a) break;
+                if(b<=z && a%j ==0)
+                {
+                    h=(x-i+1)*(y-j+1)*(z-b+1);
+                    if(h>ways) ways =h;
+                }
+            }
         }
+        cout<<ways<<"\n";
     }
 }
