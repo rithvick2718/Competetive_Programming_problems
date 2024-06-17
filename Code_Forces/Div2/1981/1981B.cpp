@@ -1,22 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
- int initialans( int n) {
-     int m = 1;
-    while (n != 0) {
-        n >>= 1; // Right shift n by 1
-        m <<= 1; // Left shift m by 1
-    }
-    return (max(0,(m >> 1)-1)); // Right shift m by 1 to get the final result
-}
- int bitcal ( int n,  int m)
+int countBits(int n) //1-index
 {
-     int init = max(( int)0,max(initialans(n),n-m));
-     int ans = init;
-    for( int i= init; i<=n+m; i++)
+    int ans=0;
+    while (n)
     {
-        ans = ans|i;
+        ans++;
+        n>>=1;
     }
     return(ans);
+}
+int solve(const int &n, const int &m)
+{
+    if(m==0) return(n);
+    int a = n^(n+m);
+    int b = n^(max(0,n-m));
+    int c =max(countBits(a),countBits(b));
+    return(n|((1<<c)-1));
 }
 int main()
 {
@@ -30,6 +30,6 @@ int main()
     {
         //write the code for each test case here
         cin>>n>>m;
-        cout<<bitcal(n,m)<<"\n";
+        cout<<solve(n,m)<<"\n";
     }
 }
