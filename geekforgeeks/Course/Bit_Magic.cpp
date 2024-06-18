@@ -51,6 +51,7 @@ int fbit (int n) //debugged
 	}
 	return(ans);
 }
+//the function below is to calculate the set bits from 1 to n
 int countSetBits(int n) //so I write a iterative solution
 {
 	if (n==0) return 0;
@@ -64,6 +65,36 @@ int countSetBits(int n) //so I write a iterative solution
 		a =fbit(n);
 	}
 	if(n&1) ans++;
+	return(ans);
+}
+// int checkpattern and maxAND are amazing problems
+//see you start out with an answer=0 and you traverse from the largest bit here 31.
+//now what we do is we check if there are atleat 2 numbers such that ( res|(1<<i) ) & a[i] = ( res|(1<<i) )
+// then we can update res = res | (1<<i)
+//see when we start with 0 we see that to maximize result we need to start from the left and go right
+// so we see the first time we have atleast 2 1's and then add it
+// now we have a res like 100000
+// now we see if there are numbers whose start part is like the start of res|(1<<i) see that res will have 0's after ith place
+//so taking an and we will get back res
+// continuing this we have our answer. this is brilliant.
+int checkpattern(int pattern, int arr[], int N)
+{
+	int count =0;
+	for(int i=0; i<N;i++)
+	{
+		if((pattern&arr[i])==pattern) count++;
+	}
+	return(count);
+}
+int maxAND (int arr[], int N) //N is the size of arr[] so you don't have to
+{
+	int ans =0;
+	int count;
+	for(int i =31; i>=0; i--)
+	{
+		count =checkpattern(ans|(1<<i),arr,N);
+		if(count >=2) ans = ans|(1<<i);
+	}
 	return(ans);
 }
 int main ()
