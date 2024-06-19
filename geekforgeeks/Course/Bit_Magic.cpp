@@ -97,11 +97,38 @@ int maxAND (int arr[], int N) //N is the size of arr[] so you don't have to
 	}
 	return(ans);
 }
+int greyConverter(int n)
+{        
+    // Your code here
+	return(n^(n>>1));
+}
+int grayToBinary(int n)
+{
+	int k =fbit(n); //this is the total bits in n
+	int ans = 1<<(k-1); //now ans and n have the same MSB
+	int binbit=1; //this is the status of binary bit
+	int graybit;
+	for(;k>1;k--)
+	{
+		graybit= (n>>(k-2))&1;
+		if(binbit^graybit){
+			ans = ans+(1<<(k-2));
+			binbit=1;
+		}
+		else binbit =0;
+	}
+	return(ans);
+}
 int main ()
 {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	int t;
 	cin>>t;
-	cout<<countSetBits(t);
+	int n;
+	while (t--)
+	{
+		cin>>n;
+		cout<<grayToBinary(n)<<"\n";
+	}
 }
