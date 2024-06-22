@@ -129,13 +129,23 @@ void FiSA (int arr[], int n) //frequencies in a sorted array
     }
     cout<<arr[n-1]<<" "<<count<<"\n";
 }
+int BSaS (int arr[], int n) //buy stocks and sell
+{
+    int profit=0;
+    for(int i=0; i<n-1;i++)
+    {
+        if(arr[i]<arr[i+1]) profit += arr[i+1]-arr[i];
+    }
+    return(profit);
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {10,10,10,23,23,23,24,27,28,29,29,30};
+    int arr[] = {1,10,9,100};
     int size =sizeof(arr)/sizeof(arr[0]);
-    FiSA(arr,size);
+    cout<<BSaS(arr,size);
     // int t; 
     // cin>>t;
     // while(t--)
