@@ -138,14 +138,33 @@ int BSaS (int arr[], int n) //buy stocks and sell
     }
     return(profit);
 }
-
+//Good
+int TRW(int arr[], int n) //Trapping rainwater
+{
+    //the idea is pre computing
+    int leftmax[n];
+    leftmax[0]=arr[0];
+    int rightmax[n];
+    rightmax[n-1]=arr[n-1];
+    for(int i=1;i<n;i++)
+    {
+        leftmax[i]=max(leftmax[i-1],arr[i]);
+        rightmax[n-1-i]=max(arr[n-1-i],rightmax[n-i]);
+    }
+    int trappedwater=0;
+    for(int i = 1; i<n-1; i++)
+    {
+        trappedwater+=min(leftmax[i],rightmax[i])-arr[i];
+    }
+    return(trappedwater);
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {1,10,9,100};
+    int arr[] = {3,0,1,2,5};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<BSaS(arr,size);
+    cout<<TRW(arr,size);
     // int t; 
     // cin>>t;
     // while(t--)
