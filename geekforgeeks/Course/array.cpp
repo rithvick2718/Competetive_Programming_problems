@@ -215,12 +215,28 @@ int MaximumSumSubarray3(int arr[], int n) //GFG Prof approach
     return(res);
 }
 //the end of Maximum Subarray Problem
+int LEOS(int arr[], int n) //longest even odd subarray
+{
+    int count =1;
+    int max = 0;
+    for(int i=0; i<n-1;i++)
+    {
+        if((arr[i]^arr[i+1])&1) count++; //^ is exclusive XOR so if we have even and odd pair or odd even, last bit will be 1 and if not it will be 1
+        else
+        {
+           if(count>max) max =count;
+           count =1; 
+        }
+    }
+    if(count>max) max =count;
+    return(max);
+} 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {-2,-2,-1,-3,23,3,-321,4523,54,323,245325,45,325,235,345,45,4,-8765};
+    int arr[] = {1,3,5,56,564,546,456,457,34523,4672,54,3467,4357,3456,547,45,643,743,657,56};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<"First "<<MaximumSumSubarray1(arr,size)<<" Second "<<MaximumSumSubarray2(arr,size)<<" Thrid "<<MaximumSumSubarray3(arr,size);
+    cout<<LEOS(arr,size);
     return(0);
 }
