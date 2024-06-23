@@ -158,24 +158,69 @@ int TRW(int arr[], int n) //Trapping rainwater
     }
     return(trappedwater);
 }
+int MC1(bool arr[], int n) //Maximum Consecutive 1's
+{
+    int count =0;
+    int MAX =0;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]) count++;
+        else
+        {
+            MAX =max(MAX,count);
+            count =0;
+        }
+    }
+    MAX=max(MAX,count);
+    return(MAX);
+}
+//these are the approaches to Maximum Sum Subarray problem
+int MaximumSumSubarray1(int arr[], int n) //my first approach Time : O(n), Space : O(n) (extra)
+{
+    int presum[n];
+    int minval[n];
+    presum[0]=arr[0];
+    minval[0]=0;
+    int maxsum=presum[0]-minval[0];
+    for(int i=1; i<n;i++)
+    {
+        presum[i]=presum[i-1]+arr[i];
+        minval[i]=min(0,min(minval[i-1],presum[i-1]));
+        maxsum=max(maxsum,presum[i]-minval[i]);
+    }//O(n)
+    return(maxsum);
+}
+int MaximumSumSubarray2(int arr[], int n) //Second approach(better) Time : O(n), Space : O(1)
+{
+    int presum =arr[0];
+    int minval =0;
+    int maxsum =presum-minval;
+    for(int i=1; i<n;i++)
+    {
+        minval=min(0,min(presum,minval));
+        presum+=arr[i];
+        maxsum=max(maxsum, presum-minval);
+    }//O(n)
+    return(maxsum);
+}
+int MaximumSumSubarray3(int arr[], int n) //GFG Prof approach
+{
+    int res =arr[0];
+    int maxending = arr[0];
+    for(int i=1; i<n; i++)
+    {
+        maxending=max(maxending+arr[i],arr[i]);
+        res = max(res, maxending);
+    }
+    return(res);
+}
+//the end of Maximum Subarray Problem
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {3,0,1,2,5};
+    int arr[] = {-2,-2,-1,-3,23,3,-321,4523,54,323,245325,45,325,235,345,45,4,-8765};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<TRW(arr,size);
-    // int t; 
-    // cin>>t;
-    // while(t--)
-    // {
-    //     int n;
-    //     cin>>n;
-    //     int a[n];
-    //     for(int i=0; i<n;i++)
-    //     {
-    //         cin>>a[i];
-    //     }
-    //     cout<<MaxDifference1(a,n)<<" "<<MaxDifference2(a,n)<<"\n";
-    // }
+    cout<<"First "<<MaximumSumSubarray1(arr,size)<<" Second "<<MaximumSumSubarray2(arr,size)<<" Thrid "<<MaximumSumSubarray3(arr,size);
+    return(0);
 }
