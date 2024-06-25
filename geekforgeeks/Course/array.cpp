@@ -68,7 +68,7 @@ void lrbyD (int arr[], int n , int D) //left rotate an array by D
     reverse(arr,D-1,n-1);
     reverse(arr,0,n-1);
 }
-//[END] Left rotate an array by D
+//[END] Left rotate an array by D68
 void LiaA (int arr[], int n)// leaders in an array
 {
     int m = arr[n-1];
@@ -230,13 +230,63 @@ int LEOS(int arr[], int n) //longest even odd subarray
     }
     if(count>max) max =count;
     return(max);
-} 
+}
+//Maximum circular subrray sum
+int MaximumCircularSubarraySum1 (int arr[], int n) //aproach 1(based on MaximumSumSubarray2)
+{
+    int minval=0;
+    int maxval=0;
+    int presum =arr[0];
+    int maxsum=presum-minval;
+    int minsum=presum-maxval;
+    for(int i=1; i<n; i++)
+    {
+        minval=min({0,presum,minval});
+        maxval=max({0,presum,maxval});
+        presum +=arr[i];
+        maxsum=max(maxsum,presum - minval);
+        minsum=min(minsum,presum -maxval);
+    }
+    if(presum!=minsum) return max(maxsum,presum-minsum);
+    return(maxsum);
+}
+int MaximumCircularSubarraySum2 (int arr[], int n) //aproach 2(based on MaximumSumSubarray3)
+{
+    int maxending=arr[0];
+    int res1=arr[0];
+    int minending=min(0,arr[0]);
+    int res2 = min(0,arr[0]);
+    int presum =arr[0];
+    for(int i=1; i<n;i++)
+    {
+        presum=presum+arr[i];
+        maxending=max({maxending+arr[i],arr[i]}); //this is the subarray sum with a[i]
+        res1=max({res1,maxending});
+        minending=min({minending+arr[i],arr[i]}); //this is the smallest subarray sum with a[i]
+        res2=min({res2,minending});
+    }
+    if(presum!=res2) return (max(res1,presum-res2));
+    return(res1);
+}
+int MaximumCircularSubarraySum3(int arr[], int n) //GFG prof approach
+{
+    int normalsum =MaximumSumSubarray3(arr,n);
+    if(normalsum <0) return (normalsum);
+    int sum=0;
+    for(int i=0; i<n;i++)
+    {
+        sum+=arr[i];
+        arr[i]=-arr[i];
+    }
+    int minsum = MaximumSumSubarray3(arr,n);
+    return(max(normalsum, sum + minsum));
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {1,3,5,56,564,546,456,457,34523,4672,54,3467,4357,3456,547,45,643,743,657,56};
+    int arr[] = {8,-4,3,-5,4};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<LEOS(arr,size);
+    cout<<MaximumCircularSubarraySum1(arr,size)<<" "<<MaximumCircularSubarraySum2(arr,size)<<" "<<MaximumCircularSubarraySum3(arr,size);
     return(0);
 }
