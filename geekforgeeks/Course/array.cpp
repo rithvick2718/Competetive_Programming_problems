@@ -231,7 +231,7 @@ int LEOS(int arr[], int n) //longest even odd subarray
     if(count>max) max =count;
     return(max);
 }
-//Maximum circular subrray sum
+//Start Maximum Circular Subarray Sum
 int MaximumCircularSubarraySum1 (int arr[], int n) //aproach 1(based on MaximumSumSubarray2)
 {
     int minval=0;
@@ -281,12 +281,39 @@ int MaximumCircularSubarraySum3(int arr[], int n) //GFG prof approach
     int minsum = MaximumSumSubarray3(arr,n);
     return(max(normalsum, sum + minsum));
 }
+//end for Maximum Circular Subarray Sum
+int MajorityElement(int arr[], int n)//Majority element of an array is the one that occurs more than n/2 in an array
+{
+    //first phase 
+    int res=0;
+    int count =1;
+    for(int i=1; i<n;i++)
+    {
+        if(arr[res]==arr[i]) count ++;
+        else count --;
+        if(count ==0)
+        {
+            res=i;
+            count =1;
+        }
+    }//This is Moore's voting algorithm
+    //second phase to check if it is majority element
+    count =0;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[res]==arr[i]) count ++;
+    }
+    if(count>n/2) return res;
+    return -1;
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {8,-4,3,-5,4};
+    int arr[] = {3, 3, 4, 2, 4, 4, 2, 4};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<MaximumCircularSubarraySum1(arr,size)<<" "<<MaximumCircularSubarraySum2(arr,size)<<" "<<MaximumCircularSubarraySum3(arr,size);
+    cout<<MajorityElement(arr,size)<<" ";
+    if(MajorityElement(arr,size)!=-1) cout<<arr[MajorityElement(arr,size)];
+    else cout<<"No majority";
     return(0);
 }
