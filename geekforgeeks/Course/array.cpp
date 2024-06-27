@@ -8,7 +8,7 @@ void printarray(int arr[], int n) //this function is used for debugging mainly
     }
     cout<<"\n";
 }
-int secondlargest(vector<int> arr) //find the second largest element of an array
+int SecondLargest(vector<int> arr) //find the second largest element of an array
 {
     int size  = arr.size();
     int ans = INT_MIN;
@@ -450,11 +450,27 @@ void RetriveFromSumUptoIndex(int arr[],int n)
     return;
 }
 //this is for Prefix sum
+int FindEquillibriumPoint(int arr[], int n)
+{
+    int rightsum=0;
+    int leftsum=0;
+    for(int i=0; i<n; i++)
+    {
+        rightsum+=arr[i];
+    }
+    for(int i =0; i<n; i++)
+    {
+        rightsum-=arr[i];
+        if(rightsum == leftsum) return i;
+        leftsum+=arr[i];
+    }
+    return -1;
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {2,3,5,4,6,1};
+    int arr[] = {4,2,-2};
     int size =sizeof(arr)/sizeof(arr[0]);
     return(0);
 }
