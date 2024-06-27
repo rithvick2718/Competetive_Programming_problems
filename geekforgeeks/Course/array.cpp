@@ -338,12 +338,98 @@ int SlidingWindowTechnique(int arr[], int n, int k) //Maximum Sum for Subarray o
     }
     return(max);
 }
+//Solutions to Subarray with given sum, array if of non negative integers
+bool SubarrayWithGivenSum (int arr[], int n, int k) //my approach 1
+{
+    // so I need to code this. well we must be better than O(n^2)
+    int sum=0;
+    int end=-1;
+    while(sum < k && end<n-1) //the first run end=-1, as end++; end becomes zero
+    {
+        end++;
+        sum+=arr[end];
+    } //can run max n times O(n)
+    if(sum == k ) return true;
+    if(sum < k) return false;
+    //so now we know (new)sum = (old)sum+ arr[end] >k but (old)sum <k
+    int start=0;
+    while(sum !=k && start<=end && end<n)
+    {
+        if(sum>k)
+        {
+            sum-=arr[start];
+            start++;
+        }
+        if(sum<k)
+        {
+            sum+=arr[end];
+            end++;
+        }
+    }// for each loop either end increase or start and start can increase n times and end can run can increase n-end
+    //so this will run max 2*n -end times so overall <4n
+    return(sum == k);
+}
+bool SubarrayWithGivenSum2 (int arr[], int n, int k) //approach after lecture same time complexity just neater
+{
+    int sum =0;
+    int start=0;
+    for(int end =0; end<n;end++)
+    {
+        sum+=arr[end];
+        while(sum > k && start <=end)
+        {
+            sum-=arr[start];
+            start++;
+        }
+        if(sum == k) return true;
+    }
+    return false;
+}
+int SubarrayWithGivenSumGFG (int arr[], int n, int sum) //GFG Solution
+{ 
+	/* Initialize curr_sum as value of first element 
+	and starting point as 0 */
+	int curr_sum = arr[0], start = 0, i; 
+
+	/* Add elements one by one to curr_sum and if the curr_sum exceeds the 
+	sum, then remove starting element */
+	for (i = 1; i <= n; i++) 
+	{ 
+		// If curr_sum exceeds the sum, then remove the starting elements 
+		while (curr_sum > sum && start < i-1) 
+		{ 
+			curr_sum = curr_sum - arr[start]; 
+			start++; 
+		} 
+
+		// If curr_sum becomes equal to sum, then return true 
+		if (curr_sum == sum) 
+		{ 
+			printf ("Sum found between indexes %d and %d", start, i-1); 
+			return 1; 
+		} 
+
+		// Add this element to curr_sum 
+		if (i < n) 
+		curr_sum = curr_sum + arr[i]; 
+	} 
+
+	// If we reach here, then no subarray 
+	printf("No subarray found"); 
+	return 0; 
+}
+//end to solutions of Subarray with given sum, array if of non negative integers
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {2, 3};
+    int arr[] = {4,8,12,5};
     int size =sizeof(arr)/sizeof(arr[0]);
-    cout<<SlidingWindowTechnique(arr,size,4);
+    int k=29;
+    if(SubarrayWithGivenSum(arr,size,k)) cout<<"YES";
+    else cout<<"NO";
+    cout<<" ";
+    if(SubarrayWithGivenSum2(arr,size,k)) cout<<"YES";
+    else cout<<"NO";
     return(0);
 }
