@@ -1,5 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
+void printarray(int arr[], int n) //this function is used for debugging mainly
+{
+    for(int i=0; i<n;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    cout<<"\n";
+}
 int secondlargest(vector<int> arr) //find the second largest element of an array
 {
     int size  = arr.size();
@@ -419,17 +427,34 @@ int SubarrayWithGivenSumGFG (int arr[], int n, int sum) //GFG Solution
 	return 0; 
 }
 //end to solutions of Subarray with given sum, array if of non negative integers
+//prefix sum queries
+void ReplaceWithSumUptoIndex (int arr[],int n)
+{
+    for(int i=1; i<n;i++)
+    {
+        arr[i]+=arr[i-1];
+    }
+    return;
+}
+int SumFromLtoR(int arr[] , int l, int r)
+{
+    if(l==0) return(arr[r]);
+    return(arr[r]-arr[l-1]);
+}
+void RetriveFromSumUptoIndex(int arr[],int n)
+{
+    for(int i=n-1; i>0;i--)
+    {
+        arr[i]-=arr[i-1];
+    }
+    return;
+}
+//this is for Prefix sum
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {4,8,12,5};
+    int arr[] = {2,3,5,4,6,1};
     int size =sizeof(arr)/sizeof(arr[0]);
-    int k=29;
-    if(SubarrayWithGivenSum(arr,size,k)) cout<<"YES";
-    else cout<<"NO";
-    cout<<" ";
-    if(SubarrayWithGivenSum2(arr,size,k)) cout<<"YES";
-    else cout<<"NO";
     return(0);
 }
