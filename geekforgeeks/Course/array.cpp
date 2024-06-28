@@ -466,11 +466,28 @@ int FindEquillibriumPoint(int arr[], int n)
     }
     return -1;
 }
+//this is good
+int MaxApperaringElement(int left[], int right[], int n) //my version I use the Prefix sum function I have already created
+{
+    int MAXINDEX=101; //I wrote this so that this function can be scaled easily
+    int frequencies[MAXINDEX]={0};
+    for(int i=0; i<n; i++)
+    {
+        frequencies[left[i]]++;
+        frequencies[right[i]+1]--;
+    }
+    ReplaceWithSumUptoIndex(frequencies,MAXINDEX);
+    int max =0;
+    for(int i=0; i<MAXINDEX;i++)
+    {
+        if(frequencies[i]>frequencies[max]) max=i;
+    }
+    return(max);
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int arr[] = {4,2,-2};
-    int size =sizeof(arr)/sizeof(arr[0]);
+    cout<<"This is the end of array. Well I don't know man";
     return(0);
 }
