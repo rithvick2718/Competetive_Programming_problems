@@ -484,6 +484,34 @@ int MaxApperaringElement(int left[], int right[], int n) //my version I use the 
     }
     return(max);
 }
+//good!
+int maxIndexDiff(int a[], int n) //this is a GFG question : https://www.geeksforgeeks.org/batch/dsa-4/track/DSASP-Arrays/problem/maximum-index-1587115620
+{
+    int mn[n]; //mn[i] contains the least element from a[0],a[1],...a[i]
+    int mx[n];//mx[i] contains the largesat element from a[i],a[i+1],...a[n-1] 
+    mn[0]=a[0];
+    mx[n-1]=a[n-1];
+    for(int i=1; i<n;i++)
+    {
+        mn[i]=min(mn[i-1],a[i]);
+        mx[n-1-i]=max(mx[n-i],a[n-1-i]);
+    }//we now have the mx[] and mn[] arrays
+    int ans=0;
+    int i=0, j=0;
+    while(i<n && j<n)
+    {
+        if(mn[i]<=mx[j])
+        {
+            ans =max(ans, j-i);
+            j++; 
+        }
+        else
+        {
+            i++;
+        }
+    }//This loop will run for max 2*n-1 time so O(n)
+    return ans;
+}
 int main()
 {
     ios::sync_with_stdio(false);
