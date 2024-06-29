@@ -22,5 +22,5 @@ public:
         ans.push_back(Num_Index[low].second);
         ans.push_back(Num_Index[high].second);
         return ans;
-    }
+    } //HEY! there is a hash table solution for this
 };
