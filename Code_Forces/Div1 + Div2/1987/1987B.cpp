@@ -10,32 +10,19 @@ int main()
     {
         int n; //lebngth of array
         cin>>n; //take it's vaalue
-        int a; //the elementts of the array
-        vector<int> toadd;
-        cin>>a; // this is the first element
-        int mx=a; //mx is max element
-        for(int i=1; i<n;i++)
+        int a; //the element of array
+        cin>>a;
+        int mx =a;
+        int mxd=0;
+        long long cost=0;
+        for(int i=1; i<n; i++)
         {
             cin>>a;
-            if(a>=mx) mx=a;
-            else
-            {
-                toadd.push_back(mx-a); //these elements are +ve
-            }
+            if(a>mx) mx=a;
+            if(mx-a>mxd) mxd =mx-a;
+            cost+=mx-a;
         }
-        sort(toadd.begin(),toadd.end());
-        int size =toadd.size();
-        if(size==0) cout<<0<<"\n";
-        else{
-            int k=size+1;
-            long long count =((long long)k)*((long long)toadd[0]);
-            k--;
-            for(int i=1; i<size; i++)
-            {
-                count+=(long long)(k)*((long long)(toadd[i]-toadd[i-1]));
-                k--;
-            }
-            cout<<count<<"\n";
-        }
+        cost+=mxd;
+        cout<<cost<<"\n";
     }
-} //so a long long was the problem.
+} //so a long long was the problem in this
