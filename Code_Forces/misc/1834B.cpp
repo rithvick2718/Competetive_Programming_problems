@@ -11,6 +11,12 @@ int maxscore(string &L, string &R)
         }
     }
     // now we know L and R have same number of zeros 
+    int i=0;
+    while(L[i]==R[i] && i<R.length())
+    {
+        i++;
+    }
+    return(abs(L[i]-R[i])+9*(R.size()-i-1));
 }
 int main()
 {
@@ -22,5 +28,6 @@ int main()
     while(t--)
     {
         cin>>L>>R;
+        cout<<maxscore(L,R)<<"\n";
     }
 }
