@@ -10,7 +10,7 @@ int maxscore(string &L, string &R)
             L='0'+L;
         }
     }
-    // now we know L and R have same number of zeros
+    // now we know L and R have same number of zeros 
 }
 int main()
 {
