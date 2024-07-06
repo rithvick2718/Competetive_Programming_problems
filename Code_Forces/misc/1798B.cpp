@@ -10,19 +10,40 @@ int main()
     while(t--)
     {
         cin>>m;
-        int size;
-        int help;
-        vector<vector<int>> a(m);
+        int n;
+        int take;
+        map<int, int> MAP;
         for(int i=0; i<m;i++)
         {
-            cin>>size;
-            while(size>0)
+            cin>>n;
+            while(n--)
             {
-                cin>>help;
-                a[i].push_back(help);
-                size--;
+                cin>>take;
+                MAP[take]=i;
             }
-        }//getitng a's
-        
+        }
+        vector<set<int>> SETS(m);
+        for(auto x : MAP)
+        {
+            SETS[x.second].insert(x.first);
+        }
+        bool can = true;
+        for(int i=0; i<m; i++)
+        {
+            if(SETS[i].size()==0)
+            {
+                can = false;
+                break;
+            }
+        }
+        if(can)
+        {
+            for(int i=0; i<m; i++)
+            {
+                cout<<*SETS[i].begin()<<" ";
+            }
+        }
+        else cout<<-1;
+        cout<<"\n";
     }
 }
