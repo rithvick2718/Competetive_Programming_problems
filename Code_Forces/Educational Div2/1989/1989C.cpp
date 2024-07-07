@@ -4,60 +4,50 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
+    int t,n;
     cin >> t;
     while (t--)
     {
         //code
-        int n;
         cin>>n;
         int a[n];
         int b[n];
-        for(int i=0; i<n; i++)
+        for(int i=0; i<n;i++)
         {
             cin>>a[i];
         }
-        for(int i=0; i<n; i++)
+        for(int i=0; i<n;i++)
         {
             cin>>b[i];
         }
-        vector<int> A,B;
-        A.push_back(0);
-        B.push_back(0);
-        int s;
+        int ascore=0,bscore=0;
+        int pos=0,neg =0;
         for(int i=0; i<n;i++)
         {
-            s=A.size();
-            for(int j=0;j<s;j++)
+            if(a[i]==b[i])
             {
-                if(A[j]>B[j])
-                {
-                    if(b[i]>=0) B[j]+=b[i]; //at no cost you can reduce min
-                    else A[j]+=a[i];
-                }
-                if(B[j]>A[j])
-                {
-                    if(a[i]>=0) A[j]+=a[i]; //no way to reduce min
-                    else B[j]+=b[i];
-                }
-                if(A[j]==B[j])
-                {
-                    //now we can go down two paths
-                    if(a[i]!=0 && b[i]!=0)
-                    {
-                        A[j]=A[j]+a[i];
-                        A.push_back(A[j]);
-                        B.push_back(B[j]+b[i]);
-                    }
-                }
+                if(a[i]==1) pos++;
+                else if(a[i]==-1) neg++;
             }
+            else
+            {
+                if(a[i]>b[i]) ascore+=a[i];
+                else bscore+=b[i];
+            } //this is undisputable
         }
-        int ans = min(A[0],B[0]);
-        s=A.size();
-        for(int i=1; i<s;i++)
+        //now we have pos, neg, ascore, bscore
+        while(pos>0)
         {
-            ans =max(ans, min(A[i],B[i]));
+            if(ascore>bscore) bscore++;
+            else ascore++;
+            pos--;
         }
-        cout<<ans;
+        while(neg>0)
+        {
+            if(ascore<bscore) bscore--;
+            else ascore--;
+            neg--;
+        }
+        cout<<min(ascore,bscore)<<"\n";
     }
 }
