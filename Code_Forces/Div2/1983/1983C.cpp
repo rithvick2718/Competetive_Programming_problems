@@ -58,22 +58,22 @@ int main()
         A=MAKEIT(a,tot);
         B=MAKEIT(b,tot);
         C=MAKEIT(c,tot);
-        cout<<"A ";
+        cout<<"A\t";
         for(auto x : A)
         {
-            cout<<x.second<<" ";
+            cout<<x.first<<" "<<x.second<<"\t";
         }
         cout<<"\n";
-        cout<<"B ";
+        cout<<"B\t";
         for(auto x : B)
         {
-            cout<<x.second<<" ";
+            cout<<x.first<<" "<<x.second<<"\t";
         }
         cout<<"\n";
-        cout<<"C ";
+        cout<<"C\t";
         for(auto x : C)
         {
-            cout<<x.second<<" ";
+            cout<<x.first<<" "<<x.second<<"\t";
         }
         cout<<"\n";
     }
