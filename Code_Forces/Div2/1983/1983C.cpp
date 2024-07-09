@@ -1,23 +1,59 @@
 #include<bits/stdc++.h>
 using namespace std;
-vector<pair<int,int>> MAKEIT(vector<int> &a, int tot)
+void takevectors(vector<vector<int>> &V, const int &n) //fine
 {
-    vector<pair<int,int>> ans;
-
-    auto it = std::lower_bound(a.begin(), a.end(), tot / 3);
-    int index = std::distance(a.begin(), it);
-    ans.push_back({1,index+1});
-
-    it = std::upper_bound(a.begin(), a.end(), tot / 3);
-    int ind = std::distance(a.begin(), it);
-    it = std::lower_bound(a.begin(), a.end(), (2*tot) / 3);
-    index = std::distance(a.begin(), it);
-    ans.push_back({ind+1, index+1});
-
-    it = std::upper_bound(a.begin(), a.end(), tot / 3);
-    ind = std::distance(a.begin(), it);
-    ans.push_back({ind+1,a.size()});
+    for(auto &v : V)
+    {
+        v[0]=0;
+        for(int i=1; i<n+1; i++)
+        {
+            cin>>v[i];
+            v[i]+=v[i-1];
+        }
+    }
+}
+int divby3(const int &tot)//debugged
+{
+    if(tot%3==0) return tot/3;
+    return tot/3 +1;
+}
+vector<pair<int,int>> SOLVE(vector<vector<int>> &V, const int  &tot, const int &n)
+{
+    for(int i1 = 0; i1 < 3; i1++)
+    {
+        for(int i2 =  0; i2 < 3; i2++)
+        {
+            if(i1!=i2)
+            {
+                for(int  i3 = 0; i3 < 3; i3++)
+                {
+                    if(i1!=i3  &&  i2!=i3)
+                    {
+                        //da code we know  i1, i2, i3 are distinct
+                        // I want this to be a function tho
+                        auto it = lower_bound(V[i1].begin(),V[i1].end(), divby3(tot));
+                        int index1 = distance(V[i1].begin(), it); // this is absolutely fine.
+                    }
+                }
+            }
+        }
+    }
+    vector<pair<int,int>> ans(0);
     return ans;
+}
+void debug (vector<vector<int>> &V)
+{
+    char name = 'A';
+    for (auto a : V)
+    {
+        cout<<name<<" : ";
+        for(auto x : a)
+        {
+            cout<<x<<" ";
+        }
+        name ++;
+        cout<<"\n";
+    }
 }
 int main()
 {
@@ -31,50 +67,19 @@ int main()
         //code for each testcase
         cout<<"Testcase :"<<copy-t<<"\n";
         cin>>n;
-        vector<int> a(n),b(n),c(n);
-        cin>>a[0];
-        for(int i=1; i<n; i++)
+        vector<vector<int>> V(3, vector<int> (n+1));
+        takevectors(V,n);
+        int tot = V[0][n-1];
+        vector<pair<int,int>> v =SOLVE(V,tot,n);
+        if(v.size()==3)
         {
-            cin>>a[i];
-            a[i]+=a[i-1];
+            for(auto f : v)
+            {
+                cout<<f.first<<" "<<f.second<<" ";
+            }   
         }
-        cin>>b[0];
-        for(int i=1; i<n; i++)
-        {
-            cin>>b[i];
-            b[i]+=b[i-1];
-        }
-        cin>>c[0];
-        for(int i=1; i<n; i++)
-        {
-            cin>>c[i];
-            c[i]+=c[i-1];
-        }
-        //now I have the arrays
-        //see that these are prefix arrrays
-        // now a[n-1]=b[n-1]=c[n-1] = tot
-        int tot =a[n-1];
-        vector<pair<int,int>> A,B,C;
-        A=MAKEIT(a,tot);
-        B=MAKEIT(b,tot);
-        C=MAKEIT(c,tot);
-        cout<<"A\t";
-        for(auto x : A)
-        {
-            cout<<x.first<<" "<<x.second<<"\t";
-        }
+        else cout<<-1;
         cout<<"\n";
-        cout<<"B\t";
-        for(auto x : B)
-        {
-            cout<<x.first<<" "<<x.second<<"\t";
-        }
-        cout<<"\n";
-        cout<<"C\t";
-        for(auto x : C)
-        {
-            cout<<x.first<<" "<<x.second<<"\t";
-        }
-        cout<<"\n";
+        debug(V);
     }
 }
