@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-void takevectors(vector<vector<int>> &V, const int &n) //fine
+void takevectors(vector<vector<long long>> &V, const int &n) //fine
 {
     for(auto &v : V)
     {
@@ -12,12 +12,12 @@ void takevectors(vector<vector<int>> &V, const int &n) //fine
         }
     }
 }
-int divby3(const int &tot)//debugged
+long long divby3(const long long &tot)//debugged
 {
     if(tot%3==0) return tot/3;
     return tot/3 +1;
 }
-vector<pair<int,int>> SOLVE(vector<vector<int>> &V, const int  &tot, const int &n)
+vector<pair<long long,long long>> SOLVE(vector<vector<long long>> &V, const long long  &tot, const int &n)
 {
     for(int i1 = 0; i1 < 3; i1++)
     {
@@ -33,27 +33,26 @@ vector<pair<int,int>> SOLVE(vector<vector<int>> &V, const int  &tot, const int &
                         // I want this to be a function tho
                         auto it = lower_bound(V[i1].begin(),V[i1].end(), divby3(tot));
                         int index1 = distance(V[i1].begin(), it); // this is absolutely fine.
+                        if(index1 < n-1) //yes this is appropriate
+                        {
+                            it = lower_bound(V[i2].begin(),V[i2].end(), V[i2][index1]+ divby3(tot));
+                            int index2 = distance(V[i2].begin(),it); //yep this is valid
+                            if(tot - V[i3][index2] >= divby3(tot) && index2 < n)
+                            {
+                                vector<pair<long long,long long>> ans(3);
+                                ans[i1]={1,index1};
+                                ans[i2]={index1+1,index2};
+                                ans[i3]={index2+1,n};
+                                return ans;
+                            }
+                        }
                     }
                 }
             }
         }
     }
-    vector<pair<int,int>> ans(0);
+    vector<pair<long long,long long>> ans(0);
     return ans;
-}
-void debug (vector<vector<int>> &V)
-{
-    char name = 'A';
-    for (auto a : V)
-    {
-        cout<<name<<" : ";
-        for(auto x : a)
-        {
-            cout<<x<<" ";
-        }
-        name ++;
-        cout<<"\n";
-    }
 }
 int main()
 {
@@ -61,16 +60,14 @@ int main()
     cin.tie(NULL);
     int t,n;
     cin>>t;
-    int copy =t;
     while(t--)
     {
         //code for each testcase
-        cout<<"Testcase :"<<copy-t<<"\n";
         cin>>n;
-        vector<vector<int>> V(3, vector<int> (n+1));
+        vector<vector<long long>> V(3, vector<long long> (n+1));
         takevectors(V,n);
-        int tot = V[0][n-1];
-        vector<pair<int,int>> v =SOLVE(V,tot,n);
+        long long tot = V[0].back();
+        vector<pair<long long,long long>> v =SOLVE(V,tot,n);
         if(v.size()==3)
         {
             for(auto f : v)
@@ -80,6 +77,5 @@ int main()
         }
         else cout<<-1;
         cout<<"\n";
-        debug(V);
     }
 }
