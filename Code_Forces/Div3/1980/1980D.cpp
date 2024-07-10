@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-int gcd(int a, int b)
+int gcd(int a, int b)//fine
 {
     if(a==0) return b;
     if(b==0) return a;
@@ -13,7 +13,7 @@ int gcd(int a, int b)
     }
     return b;
 }
-vector<int> MakeB(vector<int> &a)
+void TurnB(vector<int> &a)//fine
 {
     int size =a.size();
     vector<int> b (size-1);
@@ -21,15 +21,31 @@ vector<int> MakeB(vector<int> &a)
     {
         b[i]=gcd(a[i],a[i+1]);
     }
-    return b;
+    a=b;
 }
-void debug( vector<int> &a)
+bool SOLVE(vector<int> &a, const int &n)
 {
-    for(int z : a)
+    bool ph1 = true;
+    int i=0;
+    for(; i<n-2 && ph1; i++)
     {
-        cout<<z<<" ";
+        ph1 = (gcd(a[i],a[i+1])<=gcd(a[i+1],a[i+2]));
     }
-    cout<<"\n";
+    if(ph1) return true;
+    i--;
+    vector<int> copy =a;
+    copy.erase(copy.begin()+i);
+    TurnB(copy);
+    if(is_sorted(copy.begin(),copy.end())) return true;
+    copy=a;
+    copy.erase(copy.begin()+i+1);
+    TurnB(copy);
+    if(is_sorted(copy.begin(),copy.end())) return true;
+    copy=a;
+    copy.erase(copy.begin()+i+2);
+    TurnB(copy);
+    if(is_sorted(copy.begin(),copy.end())) return true;
+    return false;
 }
 int main()
 {
@@ -37,10 +53,8 @@ int main()
     cin.tie(NULL);
     int t;
     cin>>t;
-    int copy =t;
     while(t--)
     {
-        cout<<"Testcase : "<<copy-t<<"\n";
         int n;
         cin>>n;
         vector<int> a(n);
@@ -48,20 +62,7 @@ int main()
         {
             cin>>a[i];
         }
-        debug(a);
-        vector<int> b =MakeB(a);
-        debug(b);
-        vector<int> count;
-        for(int i =0; i< n-2; i++)
-        {
-            if(b[i]>b[i+1]) count.push_back(i);
-        }
-        if(count.size()>1) cout<<"NO\n";
-        else if(count.size()==1)
-        {
-            if(gcd(a[count[0]],a[count[0]+2])<= b[count[0]+1]) cout<<"1YES\n";
-            else cout<<"1NO\n";
-        }
-        else cout<<"-1YES\n";
+        if(SOLVE(a,n)) cout<<"YES\n";
+        else cout<<"NO\n";
     }
 }
