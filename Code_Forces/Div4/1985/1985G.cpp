@@ -1,32 +1,22 @@
 #include<bits/stdc++.h>
+#define VMOD 1000000007
 using namespace std;
-long long int ten(long long int n)
-{
-    long long int ans =1;
-    int m =n;
-}
-long long int df(long long int n)
-{
-    int ans=0;
-    while(n)
-    {
-        ans=ans+(n%10);
-        n=n/10;
-    }
-    return(ans);
-}
-bool okay (long long int n, long long int k)
-{
-    long long int a= df(k*n);
-    long long int b=df(n);
-    if(a==k*b) return(true);
-    return(false);
-}
-long long int solve(long long int l, long long int r, long long int k)
-{
-    int ans=0;
-}
 int main()
 {
-
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t; //testcases
+    cin>>t;
+    int L,R,k;
+    while(t--)
+    {
+        cin>>L>>R>>k;
+        int m = 1;
+        while(k*m<10)
+        {
+            m++;
+        }
+        m--;
+        cout<<(L)*(m+1)*(m+1)+R*(m+1)<<"\n";
+    }
 }
