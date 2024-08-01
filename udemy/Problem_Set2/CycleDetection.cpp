@@ -69,7 +69,21 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  *
  */
 bool has_cycle(SinglyLinkedListNode* head) {
-    int slowpointer = (head->data);
+
+SinglyLinkedListNode* slowpointer = head;
+    SinglyLinkedListNode* fastpointer =(*head).next;
+    while(slowpointer!=nullptr && fastpointer!=nullptr)
+    {
+        if(slowpointer==fastpointer)
+        {
+            return true;
+        }
+        slowpointer=(*slowpointer).next;
+        fastpointer=(*fastpointer).next;
+        if(fastpointer==nullptr) return false;
+        fastpointer=(*fastpointer).next;
+    }
+    return false;
 }
 
 int main()
