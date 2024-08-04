@@ -9,9 +9,6 @@ int main()
     int r,c;
     while(t--)
     {
-        if(r>c)
-        {
-            cout<<r*r-c+1;
-        }
+        
     }
 }
