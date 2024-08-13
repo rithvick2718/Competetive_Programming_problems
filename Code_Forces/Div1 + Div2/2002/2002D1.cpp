@@ -43,13 +43,56 @@ int main() {
             cin >> p[i];
         }
         int x, y;
+        bool last = false;
         for (int i = 0; i < q; ++i) {
             cin >> x >> y;
             swap(p[x - 1], p[y - 1]);  // Swapping 0-indexed
-            if (is_dfs_order(p, n)) {
+            if(last) //the last dfs order was correct
+            {
+                if(p[x-1]>=n/2 && p[y-1]>=n/2)
+                {
+                    if(p[x-1]&1) //check if the number that was swapped odd
+                    {
+                        if(p[x-1]==p[y-1]+1) //for leaf nodes o>e
+                        {
+                            cout<<"YES\n";
+                            last=true;
+                        }
+                        else
+                        {
+                            cout<<"NO\n";
+                            last =false;
+                        }
+                    }
+                    else //the swapped number is even 
+                    {
+                        if(p[x-1]==p[y-1]-1) //e<o
+                        {
+                            cout<<"YES\n";
+                            last=true;
+                        }
+                        else
+                        {
+                            cout<<"NO\n";
+                            last =false;
+                        }
+                    }
+                }
+                else
+                {
+                    cout<<"NO\n";
+                    last=false;
+                }
+            }
+            else
+            {
+                if (is_dfs_order(p, n)) {
                 cout << "YES\n";
-            } else {
-                cout << "NO\n";
+                last=true;
+                } else {
+                    cout << "NO\n";
+                    last=false;
+                }
             }
         }
     }
