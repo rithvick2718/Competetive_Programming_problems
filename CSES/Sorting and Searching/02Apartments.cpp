@@ -10,7 +10,6 @@ int main()
     cin>>n>>m>>k;
     int a[n+1];
     int b[m];
-    bool occupied[n]={};
     for(int i=0; i<n;i++)
     {
         cin>>a[i];
