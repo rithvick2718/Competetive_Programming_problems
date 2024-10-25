@@ -10,14 +10,14 @@ int main()
     {
         //code
         cin>>n;
-        int presum[n+1];
+        long long presum[n+1];
         presum[0]=0;
         for(int i=1; i<=n; i++)
         {
             cin>>presum[i];
             presum[i]+=presum[i-1];
         }
-        set<int> s;
+        set<long long> s;
         s.insert(presum[0]);
         int ans=0;
         for(int i=1; i<=n; i++)
