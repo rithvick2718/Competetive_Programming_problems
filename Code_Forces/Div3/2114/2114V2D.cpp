@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 #define INF 1000000001LL
 int cnt(const vector<ll> &A, const ll &val){
-    ll ans=0;
+    int ans=0;
     for(auto a : A) if(a==val) ans++;
     return ans;
 }
