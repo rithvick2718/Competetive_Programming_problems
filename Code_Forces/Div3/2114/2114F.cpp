@@ -4,7 +4,7 @@ using namespace std;
 vector<int> primes;
 int gcd(int x , int y);
 void fill_primes();
-pair<int,int> largest_prime_that_divides_x (int x); // figure out a better name
+int largest_prime_that_divides_x (int x); // figure out a better name
 int maximize(int x, int k);
 int main(){
     ios::sync_with_stdio(false);
@@ -17,9 +17,9 @@ int main(){
         int g = gcd(x,y);
         x/=g;
         y/=g;
-        pair<int,int> px = largest_prime_that_divides_x(x);
-        pair<int,int> py = largest_prime_that_divides_x(y);
-        if(max(px.first,py.first)>k) cout<<-1<<"\n";
+        int px = largest_prime_that_divides_x(x);
+        int py = largest_prime_that_divides_x(y);
+        if(max(px,py)>k) cout<<-1<<"\n";
         else cout<<maximize(x,k)+maximize(y,k)<<"\n";
     }
 }
@@ -50,13 +50,13 @@ void fill_primes()
     for(int i=0; i<1000'001; i++) if(is_prime[i]) primes.push_back(i);
     return;
 } //valid and efficient
-pair<int,int> largest_prime_that_divides_x (int x) // figure out a better name
+int largest_prime_that_divides_x (int x) // figure out a better name
 {
     vector<int>::iterator it = upper_bound(primes.begin(),primes.end(),x); // *it is the first prime p such that p > x, in case of it == primes.end() don't worrry as x < 10^6
-    if(it==primes.begin()) return {1,0};
+    if(it==primes.begin()) return 1;
     --it; // --it is the largest prime such that p <= x
     while(x%(*it)!=0) --it;
-    return {*it, it-primes.begin()};
+    return *it;
 } // valid and efficient
 int maximize(int x, int k)
 {
