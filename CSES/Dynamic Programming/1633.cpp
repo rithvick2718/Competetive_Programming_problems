@@ -2,14 +2,6 @@
 #include<vector>
 #define MOD 1'000'000'007
 using namespace std;
-// void print_v (const vector<vector<int>> &DP){
-//     int n = DP.size();
-//     for(int i=0; i<n; i++){
-//         cout<<i<<" : ";
-//         for(auto dp : DP[i]) cout<<dp<<" ";
-//         cout<<"\n";
-//     }
-// }
 int main()
 {
     int n;
